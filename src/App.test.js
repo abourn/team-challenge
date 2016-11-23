@@ -11,6 +11,15 @@ describe('app will render', () => {
   });
 });
 
+
+describe('email input works,', () => {
+  
+});
+
+describe('name input works,', () => {
+
+});
+
 describe("birthdate works", () => {
 
 }); 
@@ -26,3 +35,5 @@ describe("confirm password works", () => {
 describe("reset button works", () => {
 
 }); 
+
+  
