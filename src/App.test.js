@@ -10,4 +10,19 @@ describe('app will render', () => {
     ReactDOM.render(<App />, div);
   });
 });
-  
+
+describe("birthdate works", () => {
+
+}); 
+
+describe("password works", () => {
+
+}); 
+
+describe("confirm password works", () => {
+
+}); 
+
+describe("reset button works", () => {
+
+}); 
