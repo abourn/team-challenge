@@ -11,3 +11,11 @@ describe('app will render', () => {
   });
 });
   
+describe('email input works,', () => {
+  
+});
+
+describe('name input works,', () => {
+
+});
+
