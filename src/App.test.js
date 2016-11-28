@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import {shallow} from 'enzyme';
 import sinon from 'sinon';
+import SignUpForm, {EmailInput, RequiredInput, BirthdayInput, PasswordConfirmationInput} from './TeamSignUp.js';
 
 describe('app will render', () => {
   it('renders without crashing', () => {
@@ -17,17 +18,19 @@ describe('email input works,', () => {
 });
 
 describe('name input works,', () => {
+    let wrapper;
+    var testErrorMsg = "Test error message";
 
+    beforeEach(() => {
+        wrapper = shallow(<RequiredInput value={""} errorMessage={testErrorMsg} />);
+    });
+
+    it('should return error if there is no text', () => {
+        expect(wrapper.find('p').text()).toEqual(testErrorMsg);
+    })
 });
 
 describe("birthdate works", () => {
-    var wrapper;
-    beforeEach(() => {
-        wrapper = shallow(<BirthdayInput />);
-    })
-
-    var validate = sinon.spy
-    wrapper.find('input').simulate('change', {target: {value: "101"}})
 
 }); 
 
@@ -41,6 +44,4 @@ describe("confirm password works", () => {
 
 describe("reset button works", () => {
 
-}); 
-
-  
+});
