@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {shallow} from 'enzyme';
+import {shallow, mount} from 'enzyme';
 import sinon from 'sinon';
+import SignUpForm, {EmailInput, RequiredInput, BirthdayInput, PasswordConfirmationInput} from './TeamSignUp';
 
 describe('app will render', () => {
   it('renders without crashing', () => {
@@ -20,15 +21,26 @@ describe('name input works,', () => {
 
 });
 
-describe("birthdate works", () => {
-    var wrapper;
-    beforeEach(() => {
-        wrapper = shallow(<BirthdayInput />);
-    })
+describe("birthdate validation works", () => {
+    it ('shows correct error msg for empty brithday', () => {
+      const wrapper = shallow(<BirthdayInput value={""}/>)
+      expect(wrapper.find('p').text()).toEqual("we need to know your birthdate");
+    });
+     
+    it('shows correct error msg for those younger than 13', () => {
+      const wrapper = shallow(<BirthdayInput value={"10/10/2016"}/>)
+      expect(wrapper.find('p').text()).toEqual("sorry, you must be at least 13 to sign up");
+    });
 
-    var validate = sinon.spy
-    wrapper.find('input').simulate('change', {target: {value: "101"}})
-
+    it('shows correct error msg for those older than 13', () => {
+      const wrapper = shallow(<BirthdayInput value={"10/10/1996"}/>)
+      expect(wrapper.find('p').length).toEqual(0);
+    });
+    
+    it('shows correct error msg for invalid dates', () => {
+      const wrapper = shallow(<BirthdayInput value={"today"}/>)
+      expect(wrapper.find('p').text()).toEqual("that isn't a valid date");
+    });
 }); 
 
 describe("password works", () => {
