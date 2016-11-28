@@ -19,7 +19,7 @@ describe('email input works,', () => {
   
 });
 
-//Do this 
+
 describe('name input works,', () => {
 
 });
@@ -28,6 +28,11 @@ describe("birthdate works", () => {
 
 }); 
 
+//test1: error message appears if field is blank 
+//test2: entering an invalid value causes invalid value message to appears
+//test3: entering a valid value does not cause an error message to appears
+//test4: changing the input field executes updateParent
+//test5: value passed onto its callback is correct
 describe("password works", () => {
 
 }); 
@@ -36,7 +41,6 @@ describe("confirm password works", () => {
 
 }); 
 
-//Do this 
 describe("reset button works", () => {
 
 }); 
