@@ -105,7 +105,6 @@ class EmailInput extends React.Component {
         valid:isValid
       }
     };
-
     this.props.updateParent(stateUpdate) //update parent state
   }
 
@@ -199,7 +198,7 @@ class BirthdayInput extends React.Component {
     var d = new Date(); //today
     d.setYear(d.getFullYear() - 13); //subtract 13 from the year
     var minTimestamp = d.getTime();
-    if(timestamp < minTimestamp){
+    if(timestamp > minTimestamp){
       return {notOldEnough:true, isValid:false}
     }
 
