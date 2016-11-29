@@ -30,23 +30,25 @@ describe('email input works,', () => {
   // when email is in the standard format, expected to not display any errors
   it('should not be an error because valid value is inputed', () => {
     const wrapper = shallow(<EmailInput value={'dominick@gmail.com'}/>)
-     expect(wrapper.find('p').length).toEqual(0);//check length of p, if p is 0 that means there are no errors. 
+    expect(wrapper.find('p').length).toEqual(0);//check length of p, if p is 0 that means there are no errors. 
   });
 });
 
 // test the name input
 describe('name input works,', () => {
-    let wrapper;
+    //an error message for us to check
     var testErrorMsg = "Test error message";
-
-    // shallow render the RequiredInput with blank value prop and the test error message
-    beforeEach(() => {
-        wrapper = shallow(<RequiredInput value={""} errorMessage={testErrorMsg} />);
-    });
 
     // expect to return testErrorMsg when there is no name
     it('should return error if there is no text', () => {
+        const wrapper = shallow(<RequiredInput value={""} errorMessage={testErrorMsg} />);
         expect(wrapper.find('p').text()).toEqual(testErrorMsg);
+    })
+
+    // expect to not return error when there is some input for name
+    it('should not return error if there is text', () => {
+        const wrapper = shallow(<RequiredInput value={"works"} />);
+        expect(wrapper.find('p').length).toEqual(0);
     })
 });
 
