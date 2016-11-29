@@ -179,20 +179,31 @@ describe("submit button works", () => {
    
 });
 
-describe("parent callback works", () => {
+describe("parent callback works when updating validity in SignUpForm state", () => {
     let wrapper;
     beforeEach(() => {
         wrapper = mount(<SignUpForm />);
     });
 
-    it("a change on EmailInput should update state of SignUpForm with invalid input accordingly", () => {
+    it("invalid input on EmailInput should update state of SignUpForm accordingly", () => {
         wrapper.find('EmailInput').find('input').simulate('change', {target:{value:'adsf'}});
         expect(wrapper.state().email.valid).toEqual(false);
     })
 
-    it("EmailInput should update state of SignUpForm with valid input accordingly", () => {
+    it("valid input on EmailInput should update state of SignUpForm accordingly", () => {
         wrapper.find('EmailInput').find('input').simulate('change', {target:{value:'adam@gmail.com'}});
         expect(wrapper.state().email.valid).toEqual(true);
     })
+});
 
+describe("parent callback is actually called", () => {
+  it("should have the same value as the child", () => {
+    var spyCallback = sinon.spy(SignUpForm.prototype, 'updateState');
+    
+    const wrapper = mount(<App />);
+    var testDate = '10/10/2016'
+    wrapper.find('#dob').simulate('change', {target:{value:testDate}});
+
+    expect(spyCallback.getCall(0).args[0].dob.value).toEqual(testDate);
+  });
 });
