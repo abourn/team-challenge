@@ -15,16 +15,15 @@ describe('app will render', () => {
 
 
 describe('email input works,', () => {
-
   it('should warn you if box is blank', () => {
       const wrapper = shallow(<EmailInput value={''}/>)
-      console.log(wrapper.find('p').text())
+      //console.log(wrapper.find('p').text())
       expect(wrapper.find('p').text()).toEqual('we need to know your email address');
   });
 
   it('should warn you if the email is invalid', () => {
      const wrapper = shallow(<EmailInput value={'dlafjadls;kfj;l'}/>)
-     console.log(wrapper.find('p').text())
+     //console.log(wrapper.find('p').text())
       expect(wrapper.find('p').text()).toEqual('this is not a valid email address');
   });
 
@@ -81,4 +80,33 @@ describe("confirm password works", () => {
 
 describe("reset button works", () => {
 
+});
+
+
+describe("submit button works", () => {
+    it('enables submit button when all inputs are valid', () => {
+      const wrapper = mount(<SignUpForm />);
+      wrapper.setState({
+        email:{value:'dominick@gmail.com',valid:true}, 
+        name:{value:'dominick',valid:true},
+        dob:{value:'10/10/1996',valid:true},
+        password:{value:'pass123',valid:true},
+        passwordConf:{value:'pass123',valid:true}
+      })
+      expect(wrapper.find('#submitButton').props().disabled).toEqual(false);
+   });
+
+   
+  it('disables submit button when some inputs are invalid', () => {
+      const wrapper = mount(<SignUpForm />);
+      wrapper.setState({
+        email:{value:'',valid:false}, 
+        name:{value:'',valid:false},
+        dob:{value:'',valid:false},
+        password:{value:'',valid:false},
+        passwordConf:{value:'',valid:false}
+      })
+      expect(wrapper.find('#submitButton').props().disabled).toEqual(true);
+   });
+   
 });
