@@ -2,7 +2,7 @@
   "name": "testing-challenge",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/abourn/team-challenge/build",
+  "homepage": "https://abourn.github.io/team-challenge/",
   "devDependencies": {
     "enzyme": "^2.6.0",
     "react-addons-test-utils": "^15.4.1",
