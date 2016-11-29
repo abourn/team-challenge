@@ -178,3 +178,21 @@ describe("submit button works", () => {
    });
    
 });
+
+describe("parent callback works", () => {
+    let wrapper;
+    beforeEach(() => {
+        wrapper = mount(<SignUpForm />);
+    });
+
+    it("a change on EmailInput should update state of SignUpForm with invalid input accordingly", () => {
+        wrapper.find('EmailInput').find('input').simulate('change', {target:{value:'adsf'}});
+        expect(wrapper.state().email.valid).toEqual(false);
+    })
+
+    it("EmailInput should update state of SignUpForm with valid input accordingly", () => {
+        wrapper.find('EmailInput').find('input').simulate('change', {target:{value:'adam@gmail.com'}});
+        expect(wrapper.state().email.valid).toEqual(true);
+    })
+
+});
