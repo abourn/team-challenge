@@ -127,7 +127,7 @@ describe("reset button works", () => {
         var allClear = true;
         wrapper.find('#resetButton').simulate('click');
         for (var key in wrapper.state()) {
-            if (wrapper.state()[key].value.length > 0) {
+            if (key !== "submitSuccess" && wrapper.state()[key].value.length > 0) {
                 allClear = false;
             }
         }
