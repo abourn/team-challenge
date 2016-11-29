@@ -255,6 +255,9 @@ class PasswordConfirmationInput extends React.Component {
     if(currentValue === '' || this.props.password === ''){ //check both entries
       return {mismatched:true, isValid:false};
     }    
+    if(currentValue !== this.props.password) {
+      return {mismatched:true, isValid:false};
+    }
 
     return {isValid: true}; //no errors
   }  
@@ -265,7 +268,7 @@ class PasswordConfirmationInput extends React.Component {
 
     //what to assign to parent's state
     var stateUpdate = {
-      'passConf': {
+      'passwordConf': {
         value:event.target.value,
         valid:isValid
       }
@@ -281,9 +284,9 @@ class PasswordConfirmationInput extends React.Component {
 
     return (
       <div className={inputStyle}>
-        <label htmlFor="passwordConf">Confirm Password</label>
+        <label htmlFor="password">Confirm Password</label>
         <input type="password" id="passwordConf" name="passwordConf" className="form-control"
-                value={this.props.value}
+                value={this.props.value} 
                 onChange={(e) => this.handleChange(e)}
         />
         {errors.mismatched &&

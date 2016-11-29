@@ -5,7 +5,6 @@ import {shallow, mount} from 'enzyme';
 import sinon from 'sinon';
 import SignUpForm, {EmailInput, RequiredInput, BirthdayInput, PasswordConfirmationInput} from './TeamSignUp.js';
 
-
 describe('app will render', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
@@ -18,14 +17,14 @@ describe('email input works,', () => {
 
   it('should warn you if box is blank', () => {
       const wrapper = shallow(<EmailInput value={''}/>)
-      console.log(wrapper.find('p').text())
+      //console.log(wrapper.find('p').text())
       expect(wrapper.find('p').text()).toEqual('we need to know your email address');
   });
 
   it('should warn you if the email is invalid', () => {
      const wrapper = shallow(<EmailInput value={'dlafjadls;kfj;l'}/>)
-     console.log(wrapper.find('p').text())
-      expect(wrapper.find('p').text()).toEqual('this is not a valid email address');
+     //console.log(wrapper.find('p').text())
+     expect(wrapper.find('p').text()).toEqual('this is not a valid email address');
   });
 
   it('should not be an error because valid value is inputed', () => {
@@ -34,6 +33,7 @@ describe('email input works,', () => {
   });
   
 });
+
 
 describe('name input works,', () => {
     let wrapper;
@@ -72,13 +72,48 @@ describe("birthdate validation works", () => {
 }); 
 
 describe("password works", () => {
+    let wrapper;
+    var testErrorMsg = "Test error message";
 
+    beforeEach(() => {
+        wrapper = shallow(<RequiredInput value={""} errorMessage={testErrorMsg} />);
+    });
+
+    it('should return error if there is no text', () => {
+        expect(wrapper.find('p').text()).toEqual(testErrorMsg);
+    })
 }); 
 
-describe("confirm password works", () => {
+describe("confirm password", () => {
+  it('should return error if passwords do not match', () => {
+    const wrapper = shallow(<PasswordConfirmationInput value={"12345"} password={"1234567"}/>)
+    expect(wrapper.find('p').text()).toEqual("passwords don't match");
+  });
 
+  it('should not return error message if passwords do match', () => {
+    const wrapper = shallow(<PasswordConfirmationInput value={"1234559"} password={"1234559"}/>);
+    expect(wrapper.find('p').length).toEqual(0); //if length is 0, no error
+  });
 }); 
 
 describe("reset button works", () => {
+    let wrapper;
+
+    beforeEach(() => {
+        wrapper = mount(<SignUpForm />);
+    });
+
+    it("should clear all forms when reset button clicked", () => {
+        var allClear = true;
+        wrapper.find('#resetButton').simulate('click');
+        for (var key in wrapper.state()) {
+            if (wrapper.state()[key].value.length > 0) {
+                allClear = false;
+            }
+        }
+        expect(allClear).toEqual(true);
+    })
 
 });
+    
+
