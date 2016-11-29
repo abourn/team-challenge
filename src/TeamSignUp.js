@@ -66,7 +66,7 @@ class SignUpForm extends React.Component {
         {/* Submit Buttons */}
         <div className="form-group">
           <button id="resetButton" type="reset" className="btn btn-default" onClick={(e)=>this.handleReset(e)}>Reset</button> {' ' /*space*/}
-          <button id="submitButton" type="submit" className="btn btn-primary" disabled={buttonEnabled}>Sign Me Up!</button>
+          <button id="submitButton" type="submit" className="btn btn-primary" disabled={false}>Sign Me Up!</button>
         </div>
 
       </form>
