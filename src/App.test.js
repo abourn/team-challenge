@@ -71,9 +71,6 @@ describe("birthdate validation works", () => {
     });
 }); 
 
-//test1: error message appears if field is blank 
-//test2: changing the input field executes updateParent
-//test3: value passed onto its callback is correct
 describe("password works", () => {
     let wrapper;
     var testErrorMsg = "Test error message";
