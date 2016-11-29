@@ -163,4 +163,17 @@ describe("submit button works", () => {
       expect(wrapper.find('#submitButton').props().disabled).toEqual(true);
    });
    
+   it('shows submitted alert when all inputs are valid and button is clicked', () => {
+        const wrapper = mount(<SignUpForm />);
+        wrapper.setState({
+            email:{value:'dominick@gmail.com',valid:true}, 
+            name:{value:'dominick',valid:true},
+            dob:{value:'10/10/1996',valid:true},
+            password:{value:'pass123',valid:true},
+            passwordConf:{value:'pass123',valid:true}
+        })
+        wrapper.find('#submitButton').simulate('click');
+       expect(wrapper.find('#success').text()).toEqual("Successfully Submitted!");
+   });
+   
 });

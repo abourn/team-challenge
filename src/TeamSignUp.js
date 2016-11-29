@@ -63,7 +63,7 @@ class SignUpForm extends React.Component {
     return (
       <div>
         {this.state.submitSuccess &&
-          <div className="alert alert-success" role="alert">Successfully Submitted!</div>
+          <div id="success" className="alert alert-success" role="alert">Successfully Submitted!</div>
         }
         <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
 
@@ -90,7 +90,7 @@ class SignUpForm extends React.Component {
           {/* Submit Buttons */}
           <div className="form-group">
             <button id="resetButton" type="reset" className="btn btn-default" onClick={(e)=>this.handleReset(e)}>Reset</button> {' ' /*space*/}
-            <button id="submitButton" type="submit" className="btn btn-primary" disabled={!buttonEnabled}>Sign Me Up!</button>
+            <button id="submitButton" type="submit" className="btn btn-primary" disabled={!buttonEnabled} onClick={(e)=>this.handleSubmit(e)}>Sign Me Up!</button>
           </div>
         </form>
       </div>
