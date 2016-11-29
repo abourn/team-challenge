@@ -11,7 +11,8 @@ class SignUpForm extends React.Component {
       name:{value:'',valid:false},
       dob:{value:'',valid:false},
       password:{value:'',valid:false},
-      passwordConf:{value:'',valid:false}
+      passwordConf:{value:'',valid:false},
+      submitSuccess: false
     };
 
     this.updateState = this.updateState.bind(this); //bind for scope
@@ -25,7 +26,15 @@ class SignUpForm extends React.Component {
   //callback for the reset button
   handleReset(event) {
     console.log('Reset!');
-    var emptyState = {};
+    //var emptyState = {};
+    var emptyState = {
+      email:{value:'',valid:false}, 
+      name:{value:'',valid:false},
+      dob:{value:'',valid:false},
+      password:{value:'',valid:false},
+      passwordConf:{value:'',valid:false},
+      submitSuccess: false
+    };
     this.setState(emptyState);
   }
 
@@ -33,43 +42,58 @@ class SignUpForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log('Submitted!');
-    this.props.submitCallback(this.state);
+    var emptyState = {
+      email:{value:'',valid:false}, 
+      name:{value:'',valid:false},
+      dob:{value:'',valid:false},
+      password:{value:'',valid:false},
+      passwordConf:{value:'',valid:false},
+      submitSuccess: true
+    };
+    this.setState(emptyState);
+    //theoretically would input this data in state in firebase,
+    //etc.
+    //this.props.submitCallback(this.state);
   }
 
   render() {
     //if all fields are valid, button should be enabled
-    var buttonEnabled = (this.state.email.valid && this.state.name.valid && this.state.dob.isValid && this.state.password.valid);
-
+    var buttonEnabled = (this.state.email.valid && this.state.name.valid && this.state.dob.valid && this.state.password.valid
+                          && this.state.passwordConf.valid);
     return (
-      <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
+      <div>
+        {this.state.submitSuccess &&
+          <div id="success" className="alert alert-success" role="alert">Successfully Submitted!</div>
+        }
+        <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
 
-        <EmailInput value={this.state.email.value} updateParent={this.updateState} />
+          <EmailInput value={this.state.email.value} updateParent={this.updateState} />
 
-        <RequiredInput 
-          id="name" field="name" type="text"
-          label="Name" placeholder="your name"
-          errorMessage="we need to know your name"
-          value={this.state.name.value} 
-          updateParent={this.updateState} />
+          <RequiredInput 
+            id="name" field="name" type="text"
+            label="Name" placeholder="your name"
+            errorMessage="we need to know your name"
+            value={this.state.name.value} 
+            updateParent={this.updateState} />
 
-        <BirthdayInput value={this.state.dob.value} updateParent={this.updateState}/>
+          <BirthdayInput value={this.state.dob.value} updateParent={this.updateState}/>
 
-        <RequiredInput 
-          id="password" field="password" type="password"
-          label="Password" placeholder=""
-          errorMessage="your password can't be blank"
-          value={this.state.password.value} 
-          updateParent={this.updateState} />
+          <RequiredInput 
+            id="password" field="password" type="password"
+            label="Password" placeholder=""
+            errorMessage="your password can't be blank"
+            value={this.state.password.value} 
+            updateParent={this.updateState} />
 
-        <PasswordConfirmationInput value={this.state.passwordConf.value} password={this.state.password.value} updateParent={this.updateState}/>
+          <PasswordConfirmationInput value={this.state.passwordConf.value} password={this.state.password.value} updateParent={this.updateState}/>
 
-        {/* Submit Buttons */}
-        <div className="form-group">
-          <button id="resetButton" type="reset" className="btn btn-default" onClick={(e)=>this.handleReset(e)}>Reset</button> {' ' /*space*/}
-          <button id="submitButton" type="submit" className="btn btn-primary" disabled={buttonEnabled}>Sign Me Up!</button>
-        </div>
-
-      </form>
+          {/* Submit Buttons */}
+          <div className="form-group">
+            <button id="resetButton" type="reset" className="btn btn-default" onClick={(e)=>this.handleReset(e)}>Reset</button> {' ' /*space*/}
+            <button id="submitButton" type="submit" className="btn btn-primary" disabled={!buttonEnabled} onClick={(e)=>this.handleSubmit(e)}>Sign Me Up!</button>
+          </div>
+        </form>
+      </div>
     );
   }
 }
@@ -170,7 +194,7 @@ class RequiredInput extends React.Component {
                 value={this.props.value}
                 onChange={(e) => this.handleChange(e)}
         />
-        {errors &&
+        {!errors.isValid &&
           <p className="help-block error-missing">{this.props.errorMessage}</p>
         }
       </div>
