@@ -40,7 +40,6 @@ class SignUpForm extends React.Component {
     //if all fields are valid, button should be enabled
     var buttonEnabled = (this.state.email.valid && this.state.name.valid && this.state.dob.valid && this.state.password.valid
                           && this.state.passwordConf.valid);
-    console.log(buttonEnabled)
     return (
       <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
 
@@ -69,7 +68,6 @@ class SignUpForm extends React.Component {
           <button id="resetButton" type="reset" className="btn btn-default" onClick={(e)=>this.handleReset(e)}>Reset</button> {' ' /*space*/}
           <button id="submitButton" type="submit" className="btn btn-primary" disabled={!buttonEnabled}>Sign Me Up!</button>
         </div>
-
       </form>
     );
   }
@@ -171,7 +169,7 @@ class RequiredInput extends React.Component {
                 value={this.props.value}
                 onChange={(e) => this.handleChange(e)}
         />
-        {errors &&
+        {!errors.isValid &&
           <p className="help-block error-missing">{this.props.errorMessage}</p>
         }
       </div>
@@ -256,6 +254,9 @@ class PasswordConfirmationInput extends React.Component {
     if(currentValue === '' || this.props.password === ''){ //check both entries
       return {mismatched:true, isValid:false};
     }    
+    if(currentValue !== this.props.password) {
+      return {mismatched:true, isValid:false};
+    }
 
     return {isValid: true}; //no errors
   }  
@@ -266,7 +267,7 @@ class PasswordConfirmationInput extends React.Component {
 
     //what to assign to parent's state
     var stateUpdate = {
-      'passConf': {
+      'passwordConf': {
         value:event.target.value,
         valid:isValid
       }
@@ -282,9 +283,9 @@ class PasswordConfirmationInput extends React.Component {
 
     return (
       <div className={inputStyle}>
-        <label htmlFor="passwordConf">Confirm Password</label>
+        <label htmlFor="password">Confirm Password</label>
         <input type="password" id="passwordConf" name="passwordConf" className="form-control"
-                value={this.props.value}
+                value={this.props.value} 
                 onChange={(e) => this.handleChange(e)}
         />
         {errors.mismatched &&
