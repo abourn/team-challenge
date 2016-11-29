@@ -105,7 +105,6 @@ class EmailInput extends React.Component {
         valid:isValid
       }
     };
-
     this.props.updateParent(stateUpdate) //update parent state
   }
 
@@ -124,7 +123,7 @@ class EmailInput extends React.Component {
         {errors.missing &&
           <p className="help-block error-missing">we need to know your email address</p>
         }
-        {errors.invalid &&
+        {errors.invalidEmail && 
           <p className="help-block error-invalid">this is not a valid email address</p>
         }
       </div>
@@ -199,7 +198,7 @@ class BirthdayInput extends React.Component {
     var d = new Date(); //today
     d.setYear(d.getFullYear() - 13); //subtract 13 from the year
     var minTimestamp = d.getTime();
-    if(timestamp < minTimestamp){
+    if(timestamp > minTimestamp){
       return {notOldEnough:true, isValid:false}
     }
 
@@ -256,6 +255,9 @@ class PasswordConfirmationInput extends React.Component {
     if(currentValue === '' || this.props.password === ''){ //check both entries
       return {mismatched:true, isValid:false};
     }    
+    if(currentValue !== this.props.password) {
+      return {mismatched:true, isValid:false};
+    }
 
     return {isValid: true}; //no errors
   }  
@@ -266,7 +268,7 @@ class PasswordConfirmationInput extends React.Component {
 
     //what to assign to parent's state
     var stateUpdate = {
-      'passConf': {
+      'passwordConf': {
         value:event.target.value,
         valid:isValid
       }
@@ -282,9 +284,9 @@ class PasswordConfirmationInput extends React.Component {
 
     return (
       <div className={inputStyle}>
-        <label htmlFor="passwordConf">Confirm Password</label>
+        <label htmlFor="password">Confirm Password</label>
         <input type="password" id="passwordConf" name="passwordConf" className="form-control"
-                value={this.props.value}
+                value={this.props.value} 
                 onChange={(e) => this.handleChange(e)}
         />
         {errors.mismatched &&
