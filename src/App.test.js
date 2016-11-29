@@ -80,5 +80,22 @@ describe("confirm password works", () => {
 }); 
 
 describe("reset button works", () => {
+    let wrapper;
 
+    beforeEach(() => {
+        wrapper = mount(<SignUpForm />);
+    });
+
+    it("should clear all forms when reset button clicked", () => {
+        var allClear = true;
+        wrapper.find('#resetButton').simulate('click');
+        for (var key in wrapper.state()) {
+            if (wrapper.state()[key].value.length > 0) {
+                allClear = false;
+            }
+        }
+        expect(allClear).toEqual(true);
+    })
+
+    it("shouldn't have any text in input f")
 });
