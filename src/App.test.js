@@ -114,5 +114,16 @@ describe("reset button works", () => {
         expect(allClear).toEqual(true);
     })
 
-    it("shouldn't have any text in input f")
+});
+
+describe("parent callback works", () => {
+  it("should have the same value as the child", () => {
+    var spyCallback = sinon.spy(SignUpForm.prototype, 'updateState');
+    
+    const wrapper = mount(<App />);
+    var testDate = '10/10/2016'
+    wrapper.find('#dob').simulate('change', {target:{value:testDate}});
+
+    expect(spyCallback.getCall(0).args[0].dob.value).toEqual(testDate);
+  });
 });
