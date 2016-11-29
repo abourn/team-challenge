@@ -135,7 +135,7 @@ describe("reset button works", () => {
     })
 
 });
-<<<<<<< HEAD
+
 
 describe("parent callback works", () => {
   it("should have the same value as the child", () => {
@@ -148,7 +148,7 @@ describe("parent callback works", () => {
     expect(spyCallback.getCall(0).args[0].dob.value).toEqual(testDate);
   });
 });
-=======
+
     
 describe("submit button works", () => {
     // expects the submit button to be enabled when all inputs are valid 
@@ -192,4 +192,4 @@ describe("submit button works", () => {
    });
    
 });
->>>>>>> d85df71c345506176953aefc0c593e4733cc18c7
+
