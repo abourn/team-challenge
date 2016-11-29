@@ -163,6 +163,7 @@ describe("submit button works", () => {
       expect(wrapper.find('#submitButton').props().disabled).toEqual(true);
    });
    
+   // expects that submitting valid information will cause alert modal to appear
    it('shows submitted alert when all inputs are valid and button is clicked', () => {
         const wrapper = mount(<SignUpForm />);
         wrapper.setState({
